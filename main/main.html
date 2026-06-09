@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>키오스크</title>
+
+    <style>
+        
+        body{
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px;
+        }
+
+        .menu-container {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .menu-item {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+
+        .menu-item:hover {
+            transform: scale(1.08); 
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); 
+        }
+        
+        .menu-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .menu-name{
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .menu-price {
+            margin-top: 8px;
+            font-size: 16px;
+            color: #ff5252;
+            font-weight: bold;
+        }
+
+        #cart-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+        #cart-list {
+            flex-grow: 1;
+            margin-left: 40px;
+            font-size: 16px;
+        }
+
+        .cart-item {
+            display: inline-block;
+            background-color: #555;
+            padding: 5px 10px;
+            border-radius: 20px;
+            margin-right: 10px;
+        }
+
+        .total-price-box {
+            font-size: 22px;
+            font-weight: bold;
+            color: #ffee55;
+        }
+
+        .clear-btn {
+            background-color: #ff5252;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+    </style>
+
+
+
+</head>
+<body>
+    <h1>!!키오스크 메뉴 선택</h1>
+    <div class="menu-container">
+        <div class="menu-item" onclick="selectmenu('아이스 아메리카노', 2000)">
+            <img src="../image/iceam.jmg.jpg" alt="아이스 아메리카노">
+            <div class="menu-name">아이스 아메리카노</div>
+            <div class="menu-price">2,000원</div>
+        </div>
+
+        <div class="menu-item" onclick="selectmenu('핫 아메리카노', 2000)">
+            <img src="../image/hotam.jpg" alt="핫 아메리카노">
+            <div class="menu-name">핫 아메리카노</div>
+            <div class="menu-price">2,000원</div>
+        </div>
+
+        <div class="menu-item" onclick="selectmenu('아이스 카페라떼', 2700)">
+            <img src="../image/icela.jpg" alt="아이스 카페라떼">
+            <div class="menu-name">아이스 카페라떼</div>
+            <div class="menu-price">2,700원</div>
+        </div>
+
+        <div class="menu-item" onclick="selectmenu('핫 카페라떼', 2700)">
+            <img src="../image/hotla.jpg" alt="핫 카페라떼">
+            <div class="menu-name">핫 카페라떼</div>
+            <div class="menu-price">2,700원</div>
+        </div>
+
+        <div class="menu-item" onclick="selectmenu('아이스 바닐라 라떼', 3200)">
+            <img src="../image/iceba.jpg" alt="아이스 바닐라 라떼">
+            <div class="menu-name">아이스 바닐라 라떼</div>
+            <div class="menu-price">3,200원</div>
+        </div>
+
+        <div class="menu-item" onclick="selectmenu('핫 바닐라 라떼', 3200)">
+            <img src="../image/hotba.jpg" alt="핫 바닐라 라떼">
+            <div class="menu-name">핫 바닐라 라떼</div>
+            <div class="menu-price">3,200원</div>
+        </div>
+
+        <div class="menu-item" onclick="selectmenu('아이스 카라멜 마끼아또', 3500)">
+            <img src="../image/icecara.jpg" alt="아이스 카라멜 마끼아또">
+            <div class="menu-name">아이스 카라멜 마끼아또</div>
+            <div class="menu-price">3,500원</div>
+        </div>
+
+        <div class="menu-item" onclick="selectmenu('핫 카라멜 마끼아또', 3500)">
+            <img src="../image/hotcara.jpg" alt="핫 카라멜 마끼아또">
+            <div class="menu-name">핫 카라멜 마끼아또</div>
+            <div class="menu-price">3,500원</div>
+        </div>
+
+        <div class="menu-item" onclick="selectmenu('아이스 카페모카', 3700)">
+            <img src="../image/icemoka.jpg" alt="아이스 카페모카">
+            <div class="menu-name">아이스 카페모카</div>
+            <div class="menu-price">3,700원</div>
+        </div>
+
+        <div class="menu-item" onclick="selectmenu('핫 카페모카', 3700)">
+            <img src="../image/hotmoka.jpg" alt="핫 카페모카">
+            <div class="menu-name">핫 카페모카</div>
+            <div class="menu-price">3,700원</div>
+        </div>
+
+        <div class="menu-item" onclick="selectmenu('콜드브루, 3300')">
+            <img src="../image/coldbrew.jpg" alt="콜드브루">
+            <div class="menu-name">콜드브루</div>
+            <div class="menu-price">3,300원</div>
+        </div>
+
+        <div class="menu-item" onclick="selectmenu('콜드브루라떼, 3800')">
+            <img src="../image/coldbrewL.jpg" alt="콜드브루라떼">
+            <div class="menu-name">콜드브루라떼</div>
+            <div class="menu-price">3,800원</div>
+        </div>
+
+        <div class="menu-item" onclick="selectmenu('아이스티', 3000)">
+            <img src="../image/icetea.jpg" alt="아이스티">
+            <div class="menu-name">아이스티</div>
+            <div class="menu-price">3,000원</div>
+        </div>
+
+        <div class="menu-item" onclick="selectmenu('아이스 초코라떼', 3500)">
+            <img src="../image/icecho.jpg" alt="아이스 초코라떼">
+            <div class="menu-name">아이스 초코라떼</div>
+            <div class="menu-price">3,500원</div>
+        </div>
+
+        <div class="menu-item" onclick="selectmenu('핫 초코라떼', 3500)">
+            <img src="../image/hotcho.jpg" alt="핫 초코라떼">
+            <div class="menu-name">핫 초코라떼</div>
+            <div class="menu-price">3,500원</div>
+        </div>
+        
+        <div class="menu-item" onclick="selectmenu('아이스 민트초코 라떼', 3700)">
+            <img src="../image/icemint.jpg" alt="아이스 민트초코 라떼">
+            <div class="menu-name">아이스 민트초코 라떼</div>
+            <div class="menu-price">3,700원</div>
+        </div>
+  
+        <div class="menu-item" onclick="selectmenu('핫 민트초코 라떼', 3700)">
+            <img src="../image/hotmint.jpg" alt="핫 민트초코 라떼">
+            <div class="menu-name">핫 민트초코 라떼</div>
+            <div class="menu-price">3,700원</div>
+        </div>
+
+        <div class="menu-item" onclick="selectmenu('딸기라떼', 3700)">
+            <img src="../image/strb.jpg" alt="딸기라떼">
+            <div class="menu-name">딸기라떼</div>
+            <div class="menu-price">3,700원</div>
+        </div>
+
+        <div class="menu-item" onclick="selectmenu('아이스 그린티 라떼', 3500)">
+            <img src="../image/greentea.jpg" alt="아이스 그린티 라떼">
+            <div class="menu-name">아이스 그린티 라떼</div>
+            <div class="menu-price">3,500원</div>
+        </div>
+
+        <div class="menu-item" onclick="selectmenu('핫 그린티 라떼', 3500)">
+            <img src="../image/hotgreentea.jpg" alt="핫 그린티 라떼">
+            <div class="menu-name">핫 그린티 라떼</div>
+            <div class="menu-price">3,500원</div>
+        </div>
+
+        <div class="menu-item" onclick="selectmenu('딸기주스', 4000)">
+            <img src="../image/strjuice.jpg" alt="딸기주스">
+            <div class="menu-name">딸기주스</div>
+            <div class="menu-price">4,000원</div>
+        </div>
+
+        <div class="menu-item" onclick="selectmenu('딸기바나나주스', 4300)">
+            <img src="../image/strbanana.jpg" alt="딸기바나나주스">
+            <div class="menu-name">딸기바나나주스</div>
+            <div class="menu-price">4,300원</div>
+        </div>
+
+        <div class="menu-item" onclick="selectmenu('블루베리주스', 4000)">
+            <img src="../image/blueb.jpg" alt="블루베리주스">
+            <div class="menu-name">블루베리주스</div>
+            <div class="menu-price">4,000원</div>
+        </div>
+
+        <div class="menu-item" onclick="selectmenu('망고주스', 4000)">
+            <img src="../image/manj.jpg" alt="망고주스">
+            <div class="menu-name">망고주스</div>
+            <div class="menu-price">4,000원</div>
+        </div>
+
+        <div class="menu-item" onclick="selectmenu('토마토주스', 3800)">
+            <img src="../image/tomato.jpg" alt="토마토주스">
+            <div class="menu-name">토마토주스</div>
+            <div class="menu-price">3,800원</div>
+        </div>
+
+        <div class="menu-item" onclick="selectmenu('플레인 요거트 스무디', 4300)">
+            <img src="../image/yogs.jpg" alt="플레인 요거트 스무디">
+            <div class="menu-name">플레인 요거트 스무디</div>
+            <div class="menu-price">4,300원</div>
+        </div>
+
+        <div class="menu-item" onclick="selectmenu('딸기 요거트 스무디', 4300)">
+            <img src="../image/stryogs.jpg" alt="딸기 요거트 스무디">
+            <div class="menu-name">딸기 요거트 스무디</div>
+            <div class="menu-price">4,300원</div>
+        </div>
+
+        <div class="menu-item" onclick="selectmenu('망고 요거트 스무디', 4300)">
+            <img src="../image/mangyogs.jpg" alt="망고 요거트 스무디">
+            <div class="menu-name">망고 요거트 스무디</div>
+            <div class="menu-price">4,300원</div>
+        </div>
+
+        <div class="menu-item" onclick="selectmenu('블루베리 요거트 스무디', 4300)">
+            <img src="../image/blueogs.jpg" alt="블루베리 요거트 스무디">
+            <div class="menu-name">블루베리 요거트 스무디</div>
+            <div class="menu-price">4,300원</div>
+        </div>
+
+        <div class="menu-item" onclick="selectmenu('녹차 프라페', 4400)">
+            <img src="../image/greenP.jpg" alt="녹차 프라페">
+            <div class="menu-name">녹차 프라페</div>
+            <div class="menu-price">4,300원</div>
+        </div>
+
+        <div class="menu-item" onclick="selectmenu('초코 프라페', 4400)">
+            <img src="../image/chocop.jpg" alt="초코 프라페">
+            <div class="menu-name">초코 프라페</div>
+            <div class="menu-price">4,300원</div>
+        </div>
+        
+        <div class="menu-item" onclick="selectmenu('오레오 프라페', 4500)">
+            <img src="../image/oreop.jpg" alt="오레오 프라페">
+            <div class="menu-name">오레오 프라페</div>
+            <div class="menu-price">4,500원</div>
+        </div>
+
+        <div class="menu-item" onclick="selectmenu('밀크 쉐이크', 4000)">
+            <img src="../image/milks.jpg" alt="밀크쉐이크">
+            <div class="menu-name">밀크쉐이크</div>
+            <div class="menu-price">4,000원</div>
+        </div>
+        
+
+    </div>
+    <div id="cart-container">
+            <div class="cart-title">🛒 장바구니</div>
+            <div id="cart-list">선택된 메뉴가 없습니다.</div>
+            <div class="total-price-box">총 금액: <span id="total-price">0</span>원</div>
+            <button class="clear-btn" onclick="clearCart()">전체 삭제</button>
+        </div>
+
+    <script>
+
+        let cart = [];
+        let totalPrice = 0;
+
+
+        function selectmenu(name, price) {
+            cart.push({ name: name, price: price }); 
+            totalPrice += price;
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const cartListDiv = document.getElementById('cart-list');
+            const totalPriceSpan = document.getElementById('total-price');
+
+            if (cart.length === 0) {
+                cartListDiv.innerHTML = "선택된 메뉴가 없습니다.";
+                totalPriceSpan.innerText = "0";
+                return;
+            }
+
+            cartListDiv.innerHTML = "";
+            cart.forEach(item => {
+                const itemSpan = document.createElement('span');
+                itemSpan.className = 'cart-item';
+                itemSpan.innerText = item.name;
+                cartListDiv.appendChild(itemSpan);
+            });
+
+            totalPriceSpan.innerText = totalPrice.toLocaleString();
+        }
+
+        function clearCart() {
+            cart = [];
+            totalPrice = 0;
+            updateCartUI();
+        }
+    </script>
+</body>
+</html>
